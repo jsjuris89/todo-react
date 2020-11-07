@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -19,14 +19,37 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function Register() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const register = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:4000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+  };
   return (
     <div>
       <GlobalStyle />
       <h1>Register</h1>
-      <form>
-        <input placeholder="username" />
-        <input placeholder="password" />
-        <button>Register</button>
+      <form onSubmit={register}>
+        <input
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="username"
+        />
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="password"
+        />
+        <button type="submit">Register</button>
       </form>
     </div>
   );
