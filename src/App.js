@@ -3,6 +3,8 @@ import "./App.css";
 
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
+import Register from "./pages/Register";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   const [inputText, setInputText] = useState("");
@@ -48,23 +50,28 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header>
-        <h1>Juris Todo List</h1>
-      </header>
-      <Form
-        inputText={inputText}
-        todos={todos}
-        setTodos={setTodos}
-        setInputText={setInputText}
-        setStatus={setStatus}
-      />
-      <TodoList
-        filteredTodos={filteredTodos}
-        setTodos={setTodos}
-        todos={todos}
-      />
-    </div>
+    <Router>
+      <Route path="/" exact>
+        <div className="App">
+          <header>
+            <h1>Elnath Todo List</h1>
+          </header>
+          <Form
+            inputText={inputText}
+            todos={todos}
+            setTodos={setTodos}
+            setInputText={setInputText}
+            setStatus={setStatus}
+          />
+          <TodoList
+            filteredTodos={filteredTodos}
+            setTodos={setTodos}
+            todos={todos}
+          />
+        </div>
+      </Route>
+      <Route path="/register" component={Register} />
+    </Router>
   );
 }
 
