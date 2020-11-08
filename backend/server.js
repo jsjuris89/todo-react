@@ -25,6 +25,15 @@ app.get("/", (req, res) => {
 app.post("/register", async (req, res) => {
   // res.send("Register working");
   const { username, password } = req.body;
+  const user = await User.findOne({ username }).exec();
+  if (user) {
+    res.status(500);
+    res.json({
+      message: "User already exists",
+    });
+    return;
+  }
+
   await User.create({ username, password });
   res.json({
     message: "success",
