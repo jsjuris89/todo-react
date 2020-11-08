@@ -9,6 +9,12 @@ mongoose.connect("mongodb://localhost/todo", {
   useUnifiedTopology: true,
 });
 
+const userSchema = new mongoose.Schema({
+  username: String,
+  password: String,
+});
+const User = mongoose.model("User", userSchema);
+
 app.use(cors());
 app.use(express.json());
 
@@ -16,12 +22,12 @@ app.get("/", (req, res) => {
   console.log(req.url);
   res.send("<h1>Hello</h1>"); //determine the content-type automatically
 });
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   // res.send("Register working");
   const { username, password } = req.body;
+  await User.create({ username, password });
   res.json({
-    username,
-    password,
+    message: "success",
   });
 });
 
