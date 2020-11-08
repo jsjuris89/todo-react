@@ -1,6 +1,13 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
+const mongoose = require("mongoose");
+
+const app = express();
+
+mongoose.connect("mongodb://localhost/todo", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(cors());
 app.use(express.json());
@@ -18,10 +25,15 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.listen(4000, (err) => {
-  if (err) {
-    console.log("There was a problem", err);
-    return;
-  }
-  console.log("Express listening on port 4000");
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function () {
+  // we're connected!
+  app.listen(4000, (err) => {
+    if (err) {
+      console.log("There was a problem", err);
+      return;
+    }
+    console.log("Express listening on port 4000");
+  });
 });
