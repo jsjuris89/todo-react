@@ -7,6 +7,8 @@ import Welcome from "./pages/Welcome";
 import Register from "./pages/Register";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+export const CredentialsContext = React.createContext();
+
 function App() {
   const [inputText, setInputText] = useState("");
   const [todos, setTodos] = useState([]);
@@ -22,6 +24,11 @@ function App() {
     filterHandler();
     saveToLocalStorage();
   }, [todos, status]);
+
+  const credentialsState = useState({
+    username: "Sarah",
+    password: "123456",
+  });
 
   const filterHandler = () => {
     switch (status) {
@@ -51,31 +58,33 @@ function App() {
   };
 
   return (
-    <Router>
-      <Route path="/" exact>
-        <div className="App">
-          <header>
-            <h1>Elnath Todo List</h1>
-          </header>
-          <Form
-            inputText={inputText}
-            todos={todos}
-            setTodos={setTodos}
-            setInputText={setInputText}
-            setStatus={setStatus}
-          />
-          <TodoList
-            filteredTodos={filteredTodos}
-            setTodos={setTodos}
-            todos={todos}
-          />
-        </div>
-      </Route>
-      <Route path="/welcome">
-        <Welcome />
-      </Route>
-      <Route path="/register" component={Register} />
-    </Router>
+    <CredentialsContext.Provider value={credentialsState}>
+      <Router>
+        <Route path="/" exact>
+          <div className="App">
+            <header>
+              <h1>Elnath Todo List</h1>
+            </header>
+            <Form
+              inputText={inputText}
+              todos={todos}
+              setTodos={setTodos}
+              setInputText={setInputText}
+              setStatus={setStatus}
+            />
+            <TodoList
+              filteredTodos={filteredTodos}
+              setTodos={setTodos}
+              todos={todos}
+            />
+          </div>
+        </Route>
+        <Route path="/welcome">
+          <Welcome />
+        </Route>
+        <Route path="/register" component={Register} />
+      </Router>
+    </CredentialsContext.Provider>
   );
 }
 
