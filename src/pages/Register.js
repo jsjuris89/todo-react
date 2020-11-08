@@ -21,7 +21,6 @@ const GlobalStyle = createGlobalStyle`
 const handleErrors = async (response) => {
   if (!response.ok) {
     const { message } = await response.json();
-    console.log("error message", message);
     throw Error(message);
   }
   return response.json();
@@ -29,7 +28,7 @@ const handleErrors = async (response) => {
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
 
   const register = (e) => {
     e.preventDefault();
@@ -47,13 +46,14 @@ export default function Register() {
       .then(() => {})
       .catch((error) => {
         console.log("we are here", error);
-        setIsError(true);
+        setError(error.message);
       });
   };
   return (
     <div>
       <GlobalStyle />
       <h1>Register</h1>
+      {error && <span style={{ color: "red" }}>{error}</span>}
       <form onSubmit={register}>
         <input
           onChange={(e) => setUsername(e.target.value)}
