@@ -18,9 +18,18 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
+const handleErrors = async (response) => {
+  if (!response.ok) {
+    const { message } = await response.json();
+    console.log("error message", message);
+    throw Error(message);
+  }
+  return response.json();
+};
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const register = (e) => {
     e.preventDefault();
@@ -33,7 +42,13 @@ export default function Register() {
         username,
         password,
       }),
-    });
+    })
+      .then(handleErrors)
+      .then(() => {})
+      .catch((error) => {
+        console.log("we are here", error);
+        setIsError(true);
+      });
   };
   return (
     <div>
