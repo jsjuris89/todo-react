@@ -3,6 +3,7 @@ import "./App.css";
 
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
+import Welcome from "./pages/Welcome";
 import Register from "./pages/Register";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -69,6 +70,9 @@ function App() {
             todos={todos}
           />
         </div>
+      </Route>
+      <Route path="/welcome">
+        <Welcome />
       </Route>
       <Route path="/register" component={Register} />
     </Router>
