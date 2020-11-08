@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -25,6 +26,7 @@ const handleErrors = async (response) => {
   }
   return response.json();
 };
+
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -43,12 +45,17 @@ export default function Register() {
       }),
     })
       .then(handleErrors)
-      .then(() => {})
+      .then(() => {
+        history.push("/welcome");
+      })
       .catch((error) => {
         console.log("we are here", error);
         setError(error.message);
       });
   };
+
+  const history = useHistory();
+
   return (
     <div>
       <GlobalStyle />
