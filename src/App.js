@@ -25,10 +25,7 @@ function App() {
     saveToLocalStorage();
   }, [todos, status]);
 
-  const credentialsState = useState({
-    username: "Sarah",
-    password: "123456",
-  });
+  const credentialsState = useState(null);
 
   const filterHandler = () => {
     switch (status) {

@@ -15,8 +15,8 @@ export default function Welcome() {
   return (
     <div>
       <GlobalStyle />
-      <h1>Welcome {credentails.username}</h1>
-      <Link to="/register">Register</Link>
+      <h1>Welcome {credentails && credentails.username}</h1>
+      {!credentails && <Link to="/register">Register</Link>}
     </div>
   );
 }

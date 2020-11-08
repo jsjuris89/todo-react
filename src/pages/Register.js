@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+
+import { CredentialsContext } from "../App";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -31,6 +33,7 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [, setCredentials] = useContext(CredentialsContext);
 
   const register = (e) => {
     e.preventDefault();
@@ -46,6 +49,10 @@ export default function Register() {
     })
       .then(handleErrors)
       .then(() => {
+        setCredentials({
+          username,
+          password,
+        });
         history.push("/welcome");
       })
       .catch((error) => {
