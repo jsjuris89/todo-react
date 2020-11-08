@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
 import { CredentialsContext } from "../App";
+import { handleErrors } from "./Register";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -21,23 +22,15 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-export const handleErrors = async (response) => {
-  if (!response.ok) {
-    const { message } = await response.json();
-    throw Error(message);
-  }
-  return response.json();
-};
-
-export default function Register() {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [, setCredentials] = useContext(CredentialsContext);
 
-  const register = (e) => {
+  const login = (e) => {
     e.preventDefault();
-    fetch("http://localhost:4000/register", {
+    fetch("http://localhost:4000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,9 +59,9 @@ export default function Register() {
   return (
     <div>
       <GlobalStyle />
-      <h1>Register</h1>
+      <h1>Login</h1>
       {error && <span style={{ color: "red" }}>{error}</span>}
-      <form onSubmit={register}>
+      <form onSubmit={login}>
         <input
           onChange={(e) => setUsername(e.target.value)}
           placeholder="username"
@@ -78,7 +71,7 @@ export default function Register() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="password"
         />
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );

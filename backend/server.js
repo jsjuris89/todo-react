@@ -20,10 +20,9 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   console.log(req.url);
-  res.send("<h1>Hello</h1>"); //determine the content-type automatically
+  res.send("<h1>Hello</h1>");
 });
 app.post("/register", async (req, res) => {
-  // res.send("Register working");
   const { username, password } = req.body;
   const user = await User.findOne({ username }).exec();
   if (user) {
@@ -37,6 +36,21 @@ app.post("/register", async (req, res) => {
   await User.create({ username, password });
   res.json({
     message: "success",
+  });
+});
+
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ username }).exec();
+  if (!user || user.password !== password) {
+    res.status(403);
+    res.json({
+      message: "invalid login",
+    });
+    return;
+  }
+  res.json({
+    message: "successful login",
   });
 });
 
