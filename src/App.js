@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+// import "./App.css";
+// TO FIX: App.css is conflicting with Signup.css styles"
 
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
@@ -8,7 +9,6 @@ import Signup from "./components/Signup";
 export const CredentialsContext = React.createContext();
 
 function App() {
-  const [inputText, setInputText] = useState("");
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
   const [filteredTodos, setFilteredTodos] = useState([]);
@@ -23,8 +23,8 @@ function App() {
     saveToLocalStorage();
   }, [todos, status]);
 
-  // const credentialsState = useState(null);
-  const credentialsState = useState({ username: "user1", password: 111 });
+  const credentialsState = useState(null);
+  // const credentialsState = useState({ username: "user1", password: 111 });
 
   const filterHandler = () => {
     switch (status) {
@@ -60,17 +60,11 @@ function App() {
       {credentialsState[0] && (
         <div>
           <h1>Welcome {credentialsState[0] && credentialsState[0].username}</h1>
-          <Form
-            inputText={inputText}
-            todos={todos}
-            setTodos={setTodos}
-            setInputText={setInputText}
-            setStatus={setStatus}
-          />
+          <Form todos={todos} setTodos={setTodos} setStatus={setStatus} />
           <TodoList
-            filteredTodos={filteredTodos}
-            setTodos={setTodos}
             todos={todos}
+            setTodos={setTodos}
+            filteredTodos={filteredTodos}
           />
         </div>
       )}

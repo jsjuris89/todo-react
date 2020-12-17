@@ -1,8 +1,9 @@
 import React from "react";
 
-const Form = ({ inputText, setInputText, todos, setTodos, setStatus }) => {
+const Form = ({ todos, setTodos, setStatus }) => {
+  const [inputText, setInputText] = useState("");
+
   const inputTextHandler = (e) => {
-    console.log(e.target.value);
     setInputText(e.target.value);
   };
   const submitTodoHandler = (e) => {
