@@ -3,6 +3,7 @@ import "./App.css";
 
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
+import Signup from "./components/Signup";
 
 export const CredentialsContext = React.createContext();
 
@@ -22,7 +23,8 @@ function App() {
     saveToLocalStorage();
   }, [todos, status]);
 
-  const credentialsState = useState(null);
+  // const credentialsState = useState(null);
+  const credentialsState = useState({ username: "user1", password: 111 });
 
   const filterHandler = () => {
     switch (status) {
@@ -53,23 +55,25 @@ function App() {
 
   return (
     <CredentialsContext.Provider value={credentialsState}>
-      <div className="App">
-        <header>
-          <h1>Elnath Todo List</h1>
-        </header>
-        <Form
-          inputText={inputText}
-          todos={todos}
-          setTodos={setTodos}
-          setInputText={setInputText}
-          setStatus={setStatus}
-        />
-        <TodoList
-          filteredTodos={filteredTodos}
-          setTodos={setTodos}
-          todos={todos}
-        />
-      </div>
+      {!credentialsState[0] && <Signup />}
+
+      {credentialsState[0] && (
+        <div>
+          <h1>Welcome {credentialsState[0] && credentialsState[0].username}</h1>
+          <Form
+            inputText={inputText}
+            todos={todos}
+            setTodos={setTodos}
+            setInputText={setInputText}
+            setStatus={setStatus}
+          />
+          <TodoList
+            filteredTodos={filteredTodos}
+            setTodos={setTodos}
+            todos={todos}
+          />
+        </div>
+      )}
     </CredentialsContext.Provider>
   );
 }
