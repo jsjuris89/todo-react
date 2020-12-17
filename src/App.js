@@ -3,10 +3,6 @@ import "./App.css";
 
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
-import Welcome from "./pages/Welcome";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export const CredentialsContext = React.createContext();
 
@@ -57,32 +53,23 @@ function App() {
 
   return (
     <CredentialsContext.Provider value={credentialsState}>
-      <Router>
-        <Route path="/" exact>
-          <div className="App">
-            <header>
-              <h1>Elnath Todo List</h1>
-            </header>
-            <Form
-              inputText={inputText}
-              todos={todos}
-              setTodos={setTodos}
-              setInputText={setInputText}
-              setStatus={setStatus}
-            />
-            <TodoList
-              filteredTodos={filteredTodos}
-              setTodos={setTodos}
-              todos={todos}
-            />
-          </div>
-        </Route>
-        <Route path="/welcome">
-          <Welcome />
-        </Route>
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
-      </Router>
+      <div className="App">
+        <header>
+          <h1>Elnath Todo List</h1>
+        </header>
+        <Form
+          inputText={inputText}
+          todos={todos}
+          setTodos={setTodos}
+          setInputText={setInputText}
+          setStatus={setStatus}
+        />
+        <TodoList
+          filteredTodos={filteredTodos}
+          setTodos={setTodos}
+          todos={todos}
+        />
+      </div>
     </CredentialsContext.Provider>
   );
 }
