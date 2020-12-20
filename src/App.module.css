@@ -1,49 +1,50 @@
+/* TODO: 
+a) Add responsive layout to form field
+b) To .fall class to work need some JS
+*/
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  background-image: linear-gradient(120deg, #65f6d7, #7b59d6);
+.body {
+  background: linear-gradient(120deg, #65f6d7, #7b59d6);
   color: white;
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
 }
-header {
-  font-size: 1.5rem;
-}
 
-header,
-form {
+.form {
   min-height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-form input,
-form button {
+.form input,
+.form button {
   padding: 0.5rem;
   font-size: 1.5rem;
   border: none;
   background: white;
 }
-form button {
+.form button {
   color: #7b59d6;
   background: #f7fffe;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-form button:hover {
+.form button:hover {
   background: #7b59d6;
   color: white;
 }
-.todo-container {
+.todoContainer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.todo-list {
+.todoList {
   min-width: 30%;
   list-style: none;
 }
@@ -58,15 +59,15 @@ form button:hover {
   align-items: center;
   transition: all 1s ease;
 }
-.filter-todo {
+.selectTag {
   padding: 1rem;
 }
 .todo li {
   flex: 1;
 }
 
-.trash-btn,
-.complete-btn {
+.trashBtn,
+.completeBtn {
   background: #7b59d6;
   color: white;
   border: none;
@@ -74,17 +75,17 @@ form button:hover {
   cursor: pointer;
   font-size: 1rem;
 }
-.complete-btn {
+.completeBtn {
   background: rgb(70, 206, 43);
 }
-.todo-item {
+.todoItem {
   padding: 0rem 0.7rem;
 }
 
-.fa-trash,
+/* .fa-trash,
 .fa-check {
   pointer-events: none;
-}
+} */
 
 .fall {
   transform: translateY(10rem) rotateZ(20deg);
@@ -97,7 +98,7 @@ form button:hover {
 }
 
 /*CUSTOM SELECTOR */
-select {
+.selectTag {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -109,19 +110,19 @@ select {
 }
 
 /* Custom Select */
-.select {
+.selectWrapper {
   margin: 1rem;
   position: relative;
   overflow: hidden;
 }
-select {
+.selectTag {
   color: #7b59d6;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
   width: 12rem;
 }
 /* Arrow */
-.select::after {
+.selectWrapper::after {
   content: "\25BC";
   position: absolute;
   top: 0;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import "./App.css";
-// TO FIX: App.css is conflicting with Signup.css styles"
+import styles from "./App.module.css";
 
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
@@ -23,8 +22,8 @@ function App() {
     saveToLocalStorage();
   }, [todos, status]);
 
-  // const credentialsState = useState(null);
-  const credentialsState = useState({ username: "user1", password: 111 });
+  const credentialsState = useState(null);
+  // const credentialsState = useState({ username: "user1", password: 111 });
 
   const filterHandler = () => {
     switch (status) {
@@ -58,7 +57,7 @@ function App() {
       {!credentialsState[0] && <Signup />}
 
       {credentialsState[0] && (
-        <div>
+        <div className={styles.body}>
           <h1>Welcome {credentialsState[0] && credentialsState[0].username}</h1>
           <Form todos={todos} setTodos={setTodos} setStatus={setStatus} />
           <TodoList

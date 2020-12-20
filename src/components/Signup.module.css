@@ -1,3 +1,7 @@
+/* TODO: 
+a) Fix title to SignUp when needed
+b) Fix sliding animation when clicking "Signup now" */
+
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
 * {
   margin: 0;
@@ -5,15 +9,17 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-html,
-body {
+
+.body {
   display: grid;
+  min-height: 100vh;
   height: 100%;
   width: 100%;
   place-items: center;
   background: #f2f2f2;
-  /* background: -webkit-linear-gradient(left, #7b59d6, #3bddd5); */
+  background: -webkit-linear-gradient(left, #7b59d6, #3bddd5);
 }
+
 .wrapper {
   overflow: hidden;
   max-width: 390px;
@@ -22,22 +28,22 @@ body {
   border-radius: 5px;
   box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
 }
-.wrapper .title-text {
+.wrapper .title_text {
   display: flex;
   width: 200%;
 }
 
-.wrapper .title-text .title {
+.wrapper .title_text .title {
   width: 50%;
   font-size: 35px;
   font-weight: 600;
   text-align: center;
 }
-.wrapper .form-container {
+.wrapper .form_container {
   width: 100%;
   overflow: hidden;
 }
-.form-container .slide-controls {
+.form_container .slide_controls {
   position: relative;
   display: flex;
   height: 50px;
@@ -48,7 +54,7 @@ body {
   border-radius: 5px;
   overflow: hidden;
 }
-.slide-controls .slide {
+.slide_controls .slide {
   height: 100%;
   width: 100%;
   color: #fff;
@@ -60,10 +66,10 @@ body {
   z-index: 1;
   /* transition: all 0.6s ease; */
 }
-.slide-controls .signup {
+.slide_controls .slide {
   color: #000;
 }
-.slide-controls .slide-tab {
+.slide_controls .slide_tab {
   position: absolute;
   height: 100%;
   width: 50%;
@@ -76,29 +82,35 @@ body {
 input[type="radio"] {
   display: none;
 }
-#signup:checked ~ .slide-tab {
+.signup_input:checked ~ .slide_tab {
   left: 50%;
 }
-#signup:checked ~ .signup {
+.signup_input:checked ~ .signup {
   color: #fff;
 }
-#signup:checked ~ .login {
+.signup_input:checked ~ .login {
   color: #000;
 }
-.form-container .form-inner {
+.login_input:checked ~ .signup {
+  color: #000;
+}
+.login_input:checked ~ .login {
+  color: #fff;
+}
+.form_container .form_inner {
   display: flex;
   width: 200%;
 }
-.form-container .form-inner form {
+.form_container .form_inner form {
   width: 50%;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-.form-inner form .field {
+.form_inner form .field {
   height: 50px;
   width: 100%;
   margin-top: 20px;
 }
-.form-inner form .field input {
+.form_inner form .field input {
   height: 100%;
   width: 100%;
   outline: none;
@@ -108,20 +120,19 @@ input[type="radio"] {
   border: 1px solid lightgray;
   border-bottom-width: 2px;
 }
-.form-inner form .field input:focus {
+.form_inner form .field input:focus {
   border-color: #7b59d6;
 }
-.form-inner form .signup-link {
+.form_inner form .signup_link {
   font-size: 18px;
   text-align: center;
   margin-top: 20px;
 }
-.form-inner form .signup-link a {
+.form_inner form .signup_link a {
   color: #7b59d6;
-  /* color: #65f6d7; */
   text-decoration: none;
 }
-.form-inner form .signup-link a:hover {
+.form_inner form .signup_link a:hover {
   text-decoration: underline;
 }
 form .field input[type="submit"] {

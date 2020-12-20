@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../App.module.css";
 
 const Todo = ({ text, todo, todos, setTodos }) => {
   const deleteHandler = () => {
@@ -18,14 +19,18 @@ const Todo = ({ text, todo, todos, setTodos }) => {
     );
   };
   return (
-    <div className="todo">
-      <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
+    <div className={styles.todo}>
+      <li
+        className={`${styles.todoItem} ${
+          todo.completed ? styles.completed : ""
+        }`}
+      >
         {text}
       </li>
-      <button onClick={completeHandler} className="complete-btn">
+      <button onClick={completeHandler} className={styles.completeBtn}>
         <i className="fas fa-check"></i>
       </button>
-      <button onClick={deleteHandler} className="trash-btn">
+      <button onClick={deleteHandler} className={styles.trashBtn}>
         <i className="fas fa-trash"></i>
       </button>
     </div>

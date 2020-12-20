@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "../App.module.css";
 
 const Form = ({ todos, setTodos, setStatus }) => {
   const [inputText, setInputText] = useState("");
@@ -19,18 +20,17 @@ const Form = ({ todos, setTodos, setStatus }) => {
   };
 
   return (
-    <form>
-      <input
-        value={inputText}
-        onChange={inputTextHandler}
-        type="text"
-        className="todo-input"
-      />
-      <button onClick={submitTodoHandler} className="todo-button" type="submit">
+    <form className={styles.form}>
+      <input value={inputText} onChange={inputTextHandler} type="text" />
+      <button onClick={submitTodoHandler} type="submit">
         <i className="fas fa-plus-square"></i>
       </button>
-      <div className="select">
-        <select onChange={statusHandler} name="todos" className="filter-todo">
+      <div className={styles.selectWrapper}>
+        <select
+          onChange={statusHandler}
+          name="todos"
+          className={styles.selectTag}
+        >
           <option value="all">All</option>
           <option value="completed">Completed</option>
           <option value="uncompleted">Uncompleted</option>
