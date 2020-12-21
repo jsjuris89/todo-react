@@ -22,8 +22,8 @@ function App() {
     saveToLocalStorage();
   }, [todos, status]);
 
-  const credentialsState = useState(null);
-  // const credentialsState = useState({ username: "user1", password: 111 });
+  const [credentials, setCredentials] = useState(null);
+  // const [credentials, setCredentials] = useState({ username: "user1", password: 111 });
 
   const filterHandler = () => {
     switch (status) {
@@ -53,12 +53,12 @@ function App() {
   };
 
   return (
-    <CredentialsContext.Provider value={credentialsState}>
-      {!credentialsState[0] && <Signup />}
+    <CredentialsContext.Provider value={credentials}>
+      {!credentials && <Signup />}
 
-      {credentialsState[0] && (
+      {credentials && (
         <div className={styles.body}>
-          <h1>Welcome {credentialsState[0] && credentialsState[0].username}</h1>
+          <h1>Welcome {credentials && credentials.username}</h1>
           <Form todos={todos} setTodos={setTodos} setStatus={setStatus} />
           <TodoList
             todos={todos}

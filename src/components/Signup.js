@@ -10,11 +10,9 @@ const Signup = () => {
   const switchSignup = () => setSignupToggle(true);
   const switchLogin = () => setSignupToggle(false);
 
-  const [credentials, setCredentials] = useContext(CredentialsContext);
+  const credentials = useContext(CredentialsContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  // document.body.classList.add(styles.singup_body);
 
   return (
     <div>
