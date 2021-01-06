@@ -23,7 +23,11 @@ function App() {
   }, [todos, status]);
 
   const [credentials, setCredentials] = useState(null);
-  // const [credentials, setCredentials] = useState({ username: "user1", password: 111 });
+  // const [credentials, setCredentials] = useState({
+  //   username: "user1",
+  //   password: 111,
+  // });
+  console.log("APP.js - credentials -->", credentials);
 
   const filterHandler = () => {
     switch (status) {
@@ -53,7 +57,7 @@ function App() {
   };
 
   return (
-    <CredentialsContext.Provider value={credentials}>
+    <CredentialsContext.Provider value={{ credentials, setCredentials }}>
       {!credentials && <Signup />}
 
       {credentials && (

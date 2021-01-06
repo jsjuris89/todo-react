@@ -10,9 +10,33 @@ const Signup = () => {
   const switchSignup = () => setSignupToggle(true);
   const switchLogin = () => setSignupToggle(false);
 
-  const credentials = useContext(CredentialsContext);
+  const { credentials, setCredentials } = useContext(CredentialsContext);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const register = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5100/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    })
+      .then(() => {
+        setCredentials({
+          username,
+          password,
+        });
+      })
+      .catch((error) => {
+        console.log("There was an error on /register post", error);
+      });
+  };
 
   return (
     <div>
@@ -64,18 +88,10 @@ const Signup = () => {
                   }
                 >
                   <div className={styles.field}>
-                    <input
-                      type="text"
-                      placeholder="Username"
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
+                    <input type="text" placeholder="Username" />
                   </div>
                   <div className={styles.field}>
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <input type="password" placeholder="Password" />
                   </div>
                   <div className={styles.field}>
                     <input type="submit" value="Login" />
@@ -88,12 +104,20 @@ const Signup = () => {
                   </div>
                 </form>
 
-                <form className={styles.signup}>
+                <form className={styles.signup} onSubmit={register}>
                   <div className={styles.field}>
-                    <input type="text" placeholder="Username" />
+                    <input
+                      type="text"
+                      placeholder="Username"
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
                   </div>
                   <div className={styles.field}>
-                    <input type="password" placeholder="Password" />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </div>
                   <div className={styles.field}>
                     <input type="password" placeholder="Confirm Password" />
