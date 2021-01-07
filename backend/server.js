@@ -34,8 +34,12 @@ app.get("/", (req, res) => {
   res.send("<h1>Hello</h1>");
 });
 app.post("/register", async (req, res) => {
+  // console.log("register user....");
   const { username, password } = req.body;
+  // console.log("req.body:", req.body);
+  // console.log(`username: ${username} and password: ${password}`);
   const user = await User.findOne({ username }).exec();
+  // console.log("user:", user);
   if (user) {
     res.status(500);
     res.json({
@@ -51,9 +55,15 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username }).exec();
-  if (!user || user.password !== password) {
+  console.log("login user....");
+  const { loginUsername, loginPassword } = req.body;
+  console.log("req.body:", req.body);
+  console.log(
+    `loginUsername: ${loginUsername}, loginPassword: ${loginPassword}`
+  );
+  const user = await User.findOne({ username: loginUsername }).exec();
+  console.log("user:", user);
+  if (!user || user.password !== loginPassword) {
     res.status(403);
     res.json({
       message: "invalid login",
@@ -67,14 +77,14 @@ app.post("/login", async (req, res) => {
 
 app.post("/todos", async (req, res) => {
   const { authorization } = req.headers;
-  // console.log("authorization:", authorization);
+  console.log("authorization:", authorization);
   const [, token] = authorization.split(" ");
   const [username, password] = token.split(":");
-  // console.log("username from token:", username);
+  console.log("username from token:", username);
   const todosItems = req.body;
   // console.log("todosItems:", todosItems);
   const user = await User.findOne({ username }).exec();
-  // console.log("user - User.findOne({ username }):", user);
+  console.log("user - User.findOne({ username }):", user);
   // if (!user || user.password !== password) {
   //   res.status(403);
   //   res.json({

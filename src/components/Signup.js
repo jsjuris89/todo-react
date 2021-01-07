@@ -14,6 +14,8 @@ const Signup = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   const register = (e) => {
     e.preventDefault();
@@ -35,6 +37,29 @@ const Signup = () => {
       })
       .catch((error) => {
         console.log("There was an error on /register post", error);
+      });
+  };
+
+  const login = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5100/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        loginUsername,
+        loginPassword,
+      }),
+    })
+      .then(() => {
+        setCredentials({
+          username: loginUsername,
+          password: loginPassword,
+        });
+      })
+      .catch((error) => {
+        console.log("There was login error:", error);
       });
   };
 
@@ -83,15 +108,24 @@ const Signup = () => {
               <div className={styles.form_inner}>
                 <form
                   className={styles.login}
+                  onSubmit={login}
                   style={
                     signupToggle ? { marginLeft: "-50%" } : { marginLeft: "0" }
                   }
                 >
                   <div className={styles.field}>
-                    <input type="text" placeholder="Username" />
+                    <input
+                      type="text"
+                      placeholder="Username"
+                      onChange={(e) => setLoginUsername(e.target.value)}
+                    />
                   </div>
                   <div className={styles.field}>
-                    <input type="password" placeholder="Password" />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                    />
                   </div>
                   <div className={styles.field}>
                     <input type="submit" value="Login" />
