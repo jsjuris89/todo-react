@@ -22,11 +22,11 @@ function App() {
     saveToLocalStorage();
   }, [todos, status]);
 
-  const [credentials, setCredentials] = useState(null);
-  // const [credentials, setCredentials] = useState({
-  //   username: "user1",
-  //   password: 111,
-  // });
+  // const [credentials, setCredentials] = useState(null);
+  const [credentials, setCredentials] = useState({
+    username: "raivo",
+    password: "asdf",
+  });
   console.log("APP.js - credentials -->", credentials);
 
   const filterHandler = () => {
