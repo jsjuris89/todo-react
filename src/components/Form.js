@@ -3,6 +3,7 @@ import styles from "../App.module.css";
 import { CredentialsContext } from "../App";
 
 const Form = ({ todos, setTodos, setStatus }) => {
+  console.log("[Form.js] running....");
   const [todoText, setTodoText] = useState("");
   const { credentials } = useContext(CredentialsContext);
   // console.log("useContext variable credentials is", credentials);

@@ -8,16 +8,20 @@ import Signup from "./components/Signup";
 export const CredentialsContext = React.createContext();
 
 function App() {
+  console.log("[APP.js] running....");
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
   const [filteredTodos, setFilteredTodos] = useState([]);
 
   const [credentials, setCredentials] = useState(null);
+  console.log("[APP.js] credentials are:", credentials);
   // const [credentials, setCredentials] = useState({
   //   username: "juris",
   //   password: "asdf",
   // });
-  console.log("APP.js - credentials -->", credentials);
+  // console.log("APP.js - credentials -->", credentials);
+  console.log("[APP.js] todos:", todos);
+  // console.log("filteredTodos", filteredTodos);
 
   // Run once when the app starts
   // useEffect(() => {

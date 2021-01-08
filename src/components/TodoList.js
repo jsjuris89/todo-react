@@ -5,6 +5,7 @@ import { CredentialsContext } from "../App";
 import Todo from "./Todo";
 
 const TodoList = ({ todos, setTodos, filteredTodos }) => {
+  console.log("[TodoList.js] running....");
   const { credentials } = useContext(CredentialsContext);
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import Form from "./Form";
 import TodoList from "./TodoList";
 
 const Signup = () => {
+  console.log("[Signup.js] running....");
   const [signupToggle, setSignupToggle] = useState(false);
   const switchSignup = () => setSignupToggle(true);
   const switchLogin = () => setSignupToggle(false);
@@ -52,11 +53,16 @@ const Signup = () => {
         loginPassword,
       }),
     })
-      .then(() => {
-        setCredentials({
-          username: loginUsername,
-          password: loginPassword,
-        });
+      .then((response) => {
+        if (response.ok) {
+          console.log("success from backend");
+          setCredentials({
+            username: loginUsername,
+            password: loginPassword,
+          });
+        } else {
+          console.log("bad response from backend");
+        }
       })
       .catch((error) => {
         console.log("There was login error:", error);
