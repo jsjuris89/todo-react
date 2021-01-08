@@ -109,6 +109,26 @@ app.post("/todos", async (req, res) => {
   res.json({ result: "no problems in post /todos" });
 });
 
+app.get("/todos", async (req, res) => {
+  console.log("get /todos running...");
+  const { authorization } = req.headers;
+  const [, token] = authorization.split(" ");
+  const [username, password] = token.split(":");
+  console.log(`username: ${username}, password: ${password}`);
+  const user = await User.findOne({ username }).exec();
+  console.log("user:", user);
+  if (!user || user.password !== password) {
+    console.log("validation failed!");
+    res.status(403);
+    res.json({
+      message: "invalid access",
+    });
+    return;
+  }
+  const { todos } = await Todos.findOne({ userId: user._id }).exec();
+  res.json(todos);
+});
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {

@@ -12,22 +12,22 @@ function App() {
   const [status, setStatus] = useState("all");
   const [filteredTodos, setFilteredTodos] = useState([]);
 
-  // Run once when the app starts
-  useEffect(() => {
-    getFromLocalStorage();
-  }, []);
-
-  useEffect(() => {
-    filterHandler();
-    saveToLocalStorage();
-  }, [todos, status]);
-
   const [credentials, setCredentials] = useState(null);
   // const [credentials, setCredentials] = useState({
-  //   username: "raivo",
+  //   username: "juris",
   //   password: "asdf",
   // });
   console.log("APP.js - credentials -->", credentials);
+
+  // Run once when the app starts
+  // useEffect(() => {
+  //   getFromLocalStorage();
+  // }, []);
+
+  useEffect(() => {
+    filterHandler();
+    // saveToLocalStorage();
+  }, [todos, status]);
 
   const filterHandler = () => {
     switch (status) {
