@@ -17,7 +17,19 @@ const TodoList = ({ todos, setTodos, filteredTodos }) => {
       },
     })
       .then((response) => response.json())
-      .then((todos) => setTodos(todos));
+      .then((todos) => {
+        if (todos.error) {
+          console.log(
+            "we won't do setTodos because of this error from backend:",
+            todos.error
+          );
+        } else {
+          setTodos(todos);
+        }
+      })
+      .catch((error) =>
+        console.log("GET /todos catch block error --->", error)
+      );
   }, []);
 
   return (

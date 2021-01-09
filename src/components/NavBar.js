@@ -9,7 +9,7 @@ const NavBar = (props) => {
         <p>Welcome {props.credentials.username}</p>
       </div>
       <div className={styles.rightSide}>
-        <ButtonLogout />
+        <ButtonLogout setTodos={props.setTodos} />
       </div>
     </div>
   );

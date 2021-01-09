@@ -125,8 +125,14 @@ app.get("/todos", async (req, res) => {
     });
     return;
   }
-  const { todos } = await Todos.findOne({ userId: user._id }).exec();
-  res.json(todos);
+  try {
+    const { todos } = await Todos.findOne({ userId: user._id }).exec();
+    console.log("todos ---->", todos);
+    res.json(todos);
+  } catch {
+    console.log("get /todos --- catch block running.....");
+    res.json({ error: "can't find any todos from the user in mongodb" });
+  }
 });
 
 const db = mongoose.connection;

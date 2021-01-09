@@ -37,7 +37,7 @@ const Signup = () => {
         });
       })
       .catch((error) => {
-        console.log("There was an error on /register post", error);
+        console.log("POST /register error:", error);
       });
   };
 

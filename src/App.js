@@ -67,7 +67,7 @@ function App() {
 
       {credentials && (
         <div className={styles.body}>
-          <NavBar credentials={credentials} />
+          <NavBar credentials={credentials} setTodos={setTodos} />
           {/* <h1>Welcome {credentials && credentials.username}</h1> */}
           <Form todos={todos} setTodos={setTodos} setStatus={setStatus} />
           <TodoList
