@@ -4,6 +4,7 @@ import styles from "./App.module.css";
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
 import Signup from "./components/Signup";
+import NavBar from "./components/NavBar";
 
 export const CredentialsContext = React.createContext();
 
@@ -66,7 +67,8 @@ function App() {
 
       {credentials && (
         <div className={styles.body}>
-          <h1>Welcome {credentials && credentials.username}</h1>
+          <NavBar credentials={credentials} />
+          {/* <h1>Welcome {credentials && credentials.username}</h1> */}
           <Form todos={todos} setTodos={setTodos} setStatus={setStatus} />
           <TodoList
             todos={todos}
