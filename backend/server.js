@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 const User = mongoose.model("User", userSchema);
+
 const todosSchema = new mongoose.Schema({
   userId: mongoose.Schema.ObjectId,
   todos: [
@@ -93,19 +94,15 @@ app.post("/todos", async (req, res) => {
   //   return;
   // }
   const todosMongoDb = await Todos.findOne({ userId: user._id }).exec();
-  // console.log("await Todos.findOne:", todosMongoDb);
   if (!todosMongoDb) {
-    // console.log("!todos block executed");
     await Todos.create({
       userId: user._id,
       todos: todosItems,
     });
   } else {
     todosMongoDb.todos = todosItems;
-    // console.log("todosMongoDb now:", todosMongoDb);
     await todosMongoDb.save();
   }
-  // res.json(todosItems);
   res.json({ result: "no problems in post /todos" });
 });
 
@@ -133,6 +130,37 @@ app.get("/todos", async (req, res) => {
     console.log("get /todos --- catch block running.....");
     res.json({ error: "can't find any todos from the user in mongodb" });
   }
+});
+
+app.delete("/todos/:id", async (req, res) => {
+  console.log(`delete todos/${req.params.id} running......`);
+  const subDocId = req.params.id;
+  const { username } = req.body;
+  console.log(username);
+
+  const userId = await User.findOne({ username }, "_id", function (err, docs) {
+    if (err) {
+      console.log("error:", err);
+    }
+  });
+  console.log("userId --->", userId);
+
+  const todosParent = await Todos.findOne(
+    { userId: userId },
+    function (err, docs) {
+      if (err) {
+        console.log("error:", err);
+      }
+    }
+  );
+
+  await todosParent.todos.pull(subDocId);
+
+  await todosParent.save(function (err) {
+    if (err) {
+      console.log("error when saving:", err);
+    }
+  });
 });
 
 const db = mongoose.connection;
