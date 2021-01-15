@@ -94,6 +94,7 @@ app.post("/todos", async (req, res) => {
   //   return;
   // }
   const todosMongoDb = await Todos.findOne({ userId: user._id }).exec();
+  // console.log("todosMongoDb", todosMongoDb);
   if (!todosMongoDb) {
     await Todos.create({
       userId: user._id,
@@ -103,7 +104,8 @@ app.post("/todos", async (req, res) => {
     todosMongoDb.todos = todosItems;
     await todosMongoDb.save();
   }
-  res.json({ result: "no problems in post /todos" });
+  console.log("todos in mongo --->", todosMongoDb.todos);
+  res.json(todosMongoDb.todos);
 });
 
 app.get("/todos", async (req, res) => {

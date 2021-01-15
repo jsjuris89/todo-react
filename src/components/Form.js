@@ -35,7 +35,13 @@ const Form = ({ todos, setTodos, setStatus }) => {
         Authorization: `Basic ${credentials.username}:${credentials.password}`,
       },
       body: JSON.stringify(newTodos),
-    }).then(() => {});
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("backend data received:", data);
+        setTodos(data);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
