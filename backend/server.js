@@ -165,6 +165,30 @@ app.delete("/todos/:id", async (req, res) => {
   });
 });
 
+app.patch("/todos/:id", async (req, res) => {
+  console.log(`patch todos/${req.params.id} running......`);
+  // console.log(req.body);
+
+  Todos.find({ "todos._id": req.params.id }).then((result) => {
+    console.log("result is --->", result);
+    Todos.findById(result[0]._id).then((doc) => {
+      const subDoc = doc.todos.id(req.params.id);
+      subDoc.set(req.body);
+      doc.save();
+    });
+  });
+  // This is same as above then code
+  // async function amazing() {
+  //   const result = await Todos.find({ "todos._id": req.params.id });
+  //   const doc = await Todos.findById(result[0]._id);
+
+  //   const subDoc = doc.todos.id(req.params.id);
+  //   subDoc.set(req.body);
+  //   await doc.save();
+  // }
+  // amazing();
+});
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
