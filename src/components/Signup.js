@@ -88,8 +88,15 @@ const Signup = () => {
         <div className={styles.body}>
           <div className={styles.wrapper}>
             <div className={styles.title_text}>
-              <div className={styles.title}>Login Form</div>
-              <div className={styles.title}>Signup</div>
+              <div
+                className={styles.title}
+                style={
+                  signupToggle ? { marginLeft: "-50%" } : { marginLeft: "0" }
+                }
+              >
+                Login Form
+              </div>
+              <div className={styles.title}>Signup Form</div>
             </div>
 
             <div className={styles.form_container}>
