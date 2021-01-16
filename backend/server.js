@@ -42,7 +42,7 @@ app.post("/register", async (req, res) => {
   const user = await User.findOne({ username }).exec();
   // console.log("user:", user);
   if (user) {
-    res.status(500);
+    res.status(409);
     res.json({
       message: "User already exists",
     });
@@ -51,7 +51,7 @@ app.post("/register", async (req, res) => {
 
   await User.create({ username, password });
   res.json({
-    message: "success",
+    message: `New user ${username} created!`,
   });
 });
 
@@ -83,28 +83,28 @@ app.post("/todos", async (req, res) => {
   const [username, password] = token.split(":");
   console.log("username from token:", username);
   const todosItems = req.body;
-  // console.log("todosItems:", todosItems);
+  console.log("todosItems:", todosItems);
   const user = await User.findOne({ username }).exec();
-  console.log("user - User.findOne({ username }):", user);
-  // if (!user || user.password !== password) {
-  //   res.status(403);
-  //   res.json({
-  //     message: "invalid access",
-  //   });
-  //   return;
-  // }
-  const todosMongoDb = await Todos.findOne({ userId: user._id }).exec();
-  // console.log("todosMongoDb", todosMongoDb);
+  console.log("user --->", user);
+  if (!user || user.password !== password) {
+    res.status(403);
+    res.json({
+      message: "invalid access",
+    });
+    return;
+  }
+  let todosMongoDb = await Todos.findOne({ userId: user._id }).exec();
+  console.log("todosMongoDb", todosMongoDb);
   if (!todosMongoDb) {
     await Todos.create({
       userId: user._id,
       todos: todosItems,
     });
+    todosMongoDb = await Todos.findOne({ userId: user._id }).exec();
   } else {
     todosMongoDb.todos = todosItems;
     await todosMongoDb.save();
   }
-  console.log("todos in mongo --->", todosMongoDb.todos);
   res.json(todosMongoDb.todos);
 });
 

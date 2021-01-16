@@ -30,10 +30,23 @@ const Signup = () => {
         password,
       }),
     })
-      .then(() => {
-        setCredentials({
-          username,
-          password,
+      .then((response) => {
+        response.json().then((data) => {
+          console.log(data);
+          // if (response.status == 500) {
+          //   //
+          // } else {
+          //   setCredentials({
+          //     username,
+          //     password,
+          //   });
+          // }
+          if (response.status != 409) {
+            setCredentials({
+              username,
+              password,
+            });
+          }
         });
       })
       .catch((error) => {
